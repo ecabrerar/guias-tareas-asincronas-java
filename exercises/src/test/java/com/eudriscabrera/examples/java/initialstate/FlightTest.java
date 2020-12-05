@@ -1,7 +1,9 @@
-package com.eudriscabrera.examples.java;
+package com.eudriscabrera.examples.java.initialstate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author ecabrerar

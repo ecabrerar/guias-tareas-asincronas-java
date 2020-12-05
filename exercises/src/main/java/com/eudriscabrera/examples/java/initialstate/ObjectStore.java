@@ -1,4 +1,4 @@
-package com.eudriscabrera.examples.java;
+package com.eudriscabrera.examples.java.initialstate;
 
 import java.util.Optional;
 import java.util.UUID;

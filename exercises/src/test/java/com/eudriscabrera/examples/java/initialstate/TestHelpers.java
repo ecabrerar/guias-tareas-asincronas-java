@@ -1,4 +1,4 @@
-package com.eudriscabrera.examples.java;
+package com.eudriscabrera.examples.java.initialstate;
 
 import java.time.LocalTime;
 import java.util.Random;

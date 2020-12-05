@@ -1,4 +1,4 @@
-package com.eudriscabrera.examples.java;
+package com.eudriscabrera.examples.java.initialstate;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -29,6 +29,7 @@ public class CachedFlightRepository implements FlightRepository{
         lock.writeLock().unlock();
 		
 	}
+	
 	@Override
 	public Optional<Flight> getFlight(UUID flightId) {
 		lock.readLock().lock();
