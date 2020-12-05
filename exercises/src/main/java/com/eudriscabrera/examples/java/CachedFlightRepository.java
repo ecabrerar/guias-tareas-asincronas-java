@@ -15,6 +15,10 @@ public class CachedFlightRepository implements FlightRepository{
     private ConcurrentHashMap<UUID, Flight> cache = new ConcurrentHashMap<>();
     private ReadWriteLock lock = new ReentrantReadWriteLock();
     
+    CachedFlightRepository(ObjectStore objectStore){
+    	this.objectStore = objectStore;
+    }
+    
 	@Override
 	public void saveFlight(Flight flight) {
 		lock.writeLock().lock();

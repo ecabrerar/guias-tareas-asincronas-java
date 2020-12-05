@@ -1,5 +1,6 @@
 package com.eudriscabrera.examples.java;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -8,8 +9,11 @@ import java.util.UUID;
  * @author ecabrerar
  * @since Dec 3, 2020
  */
-public class Flight {
-    private final UUID id;
+public class Flight implements Serializable {
+  
+	private static final long serialVersionUID = 1L;
+	
+	private final UUID id;
     private final String name;
     private final String departure;
     private final String destination;
