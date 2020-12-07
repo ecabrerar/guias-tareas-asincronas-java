@@ -2,6 +2,7 @@ package com.eudriscabrera.examples.java.blockingcall;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,7 +14,6 @@ import java.util.logging.Logger;
  * @since Dec 5, 2020
  */
 public class FlightDashboardService {
-	private ExecutorService executor = Executors.newSingleThreadExecutor();
 
 
 	private Logger logger = Logger.getLogger(this.getClass().getName());
@@ -25,34 +25,33 @@ public class FlightDashboardService {
 		this.flightDao = flightDao;
 	}
 
-	public List<Flight> getFlightCurrentStatus() {
-		return flightDao.getFlights();
-	}
-
-	public void updateFlightStatus() {
-
+	public void updateFlightStatusBlockingSync() {
 		this.updateFlightStatusCommon();
 	}
 	
+	public void updateFlightStatusAsyncWithFuture() {
+		ExecutorService executor = Executors.newSingleThreadExecutor();
+		Future<?> future = executor.submit(()-> this.updateFlightStatusCommon());
+	}
+
+	public void updateFlightStatusAsyncWithFutureButBlocking() throws InterruptedException, ExecutionException {
+		ExecutorService executor = Executors.newSingleThreadExecutor();
+		Future<?> future = executor.submit(()-> this.updateFlightStatusCommon());
+		future.get();
+	}
+
+	public void updateFlightStatusAsyncWithCompletableFuture() {
+		CompletableFuture.runAsync( ()-> this.updateFlightStatusCommon() );
+	}
+
 	private void updateFlightStatusCommon() {
-
 		List<Flight> list = flightDao.getFlights();
-
 		for (Flight flight : list) {
 			System.out.println(" -----------------------------------------------------");
 			flightDao.updateFlight(getFlightStatus(flight));
 		}
 	}
-	
-	public void updateFlightStatusWithFuture() throws InterruptedException, ExecutionException {
-      
-	   Future<?> future = executor.submit(()-> this.updateFlightStatusCommon());
-	   
-	   future.get();
-	}
-
-	// Simulando que la aerolinea nos devuelve el status del vuelo via un servicio
-	// rest
+	// Simulando que la aerolínea nos devuelve el status del vuelo via un servicio rest
 	private Flight getFlightStatus(Flight flight) {
 
 		logger.info(String.format("Confirmar el status del vuelo %s", flight.toString()));
@@ -61,7 +60,6 @@ public class FlightDashboardService {
 
 		return flight;
 	}
-
 	private void sleep() {
 		try {
 
@@ -75,5 +73,6 @@ public class FlightDashboardService {
 			e.printStackTrace();
 		}
 	}
+
 
 }

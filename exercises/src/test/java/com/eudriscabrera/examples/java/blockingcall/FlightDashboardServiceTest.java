@@ -20,18 +20,33 @@ class FlightDashboardServiceTest {
 	
 
 	@Test
-	void testGetFlightCurrentStatus() {
-		flightDashboardService.updateFlightStatus();
+	void testUpdateFlightStatusBlockingSync() {
+		flightDashboardService.updateFlightStatusBlockingSync();
 	}
 
 	@Test
-	void testGetFlightCurrentStatusWithFuture() throws InterruptedException, ExecutionException {
-		
-		
-		flightDashboardService.updateFlightStatusWithFuture();
-		System.out.println("Termina la invocacion");
-		sleep(25000);
+	void testUpdateFlightStatusAsyncWithFuture() throws InterruptedException, ExecutionException {
+		flightDashboardService.updateFlightStatusAsyncWithFuture();
+		System.out.println("Finaliza la invocación del método ... mientras se ejecuta de manera asíncrona");
+
+		sleep( 30_000 );//30 segundos para poder ver la ejecución completa
 	}
+
+	@Test
+	void testUpdateFlightStatusAsyncWithFutureButBlocking() throws InterruptedException, ExecutionException {
+		flightDashboardService.updateFlightStatusAsyncWithFutureButBlocking();
+		System.out.println("Finaliza la invocación del método");
+	}
+
+
+	@Test
+	void testUpdateFlightStatusAsyncWithCompletableFuture() throws InterruptedException, ExecutionException {
+		flightDashboardService.updateFlightStatusAsyncWithCompletableFuture();
+		System.out.println("Finaliza la invocación del método ... mientras se ejecuta de manera asíncrona");
+
+		sleep( 30_000 );//30 segundos para poder ver la ejecución completa
+	}
+
 
 	private void sleep(long time) {
 		try {
@@ -41,7 +56,5 @@ class FlightDashboardServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
-
 
 }
