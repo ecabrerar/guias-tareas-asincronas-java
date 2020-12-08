@@ -7,6 +7,10 @@ Este demo contiene dos ejercicios que generan llamadas bloqueantes (blocking cal
 menores utilizando las clases `java.util.concurrent.Future` y `java.util.concurrent.CompletableFuture` para evitar los bloqueos y 
 permitir que se ejecuten de manera asíncrona y/o concurrente.
 
+## Presentación
+
+Ver presentación en [SlideShare](https://www2.slideshare.net/eudris/gua-para-realizar-tareas-asncronas-con-java)
+
 
 ## El código
 
